@@ -5,11 +5,7 @@ import Link from "next/link";
 
 export const footerItems = [
   {
-    title: "Let's Chat",
-    href: "/contact",
-  },
-  {
-    title: "GitHub",
+    name: "GitHub",
     href: "https://github.com/refrainsclub",
   },
 ];
@@ -19,14 +15,8 @@ export function Footer({ className }: { className?: string }) {
     <footer className={cn(className, "container mx-auto bg-background")}>
       <ul className="flex flex-col gap-4 md:flex-row">
         {footerItems.map((item) => (
-          <li key={item.title}>
-            <Link
-              href={item.href}
-              className="flex items-center gap-1 lowercase text-muted-foreground transition-colors duration-300 ease-in-out hover:text-foreground"
-            >
-              <ArrowUpRight size={20} />
-              <span>{item.title}</span>
-            </Link>
+          <li key={item.name}>
+            <FooterLink {...item} />
           </li>
         ))}
 
@@ -35,5 +25,18 @@ export function Footer({ className }: { className?: string }) {
         </li>
       </ul>
     </footer>
+  );
+}
+
+export function FooterLink({ name, href }: { name: string; href: string }) {
+  return (
+    <Link
+      href={href}
+      target="_blank"
+      className="flex items-center gap-1 lowercase text-muted-foreground transition-colors duration-300 ease-in-out hover:text-foreground"
+    >
+      <ArrowUpRight size={20} />
+      <span>{name}</span>
+    </Link>
   );
 }
