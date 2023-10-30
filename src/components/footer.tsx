@@ -25,12 +25,14 @@ export function Footer({ className }: { className?: string }) {
               className="flex items-center gap-1 lowercase text-muted-foreground transition-colors duration-300 ease-in-out hover:text-foreground"
             >
               <ArrowUpRight size={20} />
-
               <span>{item.title}</span>
             </Link>
           </li>
         ))}
-        <ModeToggle className="text-muted-foreground" />
+
+        <li className="hidden items-center md:flex">
+          <ModeToggle className="text-muted-foreground" />
+        </li>
       </ul>
     </footer>
   );

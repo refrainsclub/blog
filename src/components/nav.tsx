@@ -22,16 +22,16 @@ export const navItems = [
 
 export function Nav({ className }: { className?: string }) {
   return (
-    <NavigationMenu.Root
-      className={cn(className, "flex list-none items-center gap-4")}
-    >
-      {navItems.map((item) => (
-        <NavigationMenu.Item key={item.name}>
-          <NavigationMenu.Link asChild>
-            <NavLink {...item} />
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
-      ))}
+    <NavigationMenu.Root className={className}>
+      <NavigationMenu.List className="flex items-center gap-4">
+        {navItems.map((item) => (
+          <NavigationMenu.Item key={item.name}>
+            <NavigationMenu.Link asChild>
+              <NavLink {...item} />
+            </NavigationMenu.Link>
+          </NavigationMenu.Item>
+        ))}
+      </NavigationMenu.List>
     </NavigationMenu.Root>
   );
 }
