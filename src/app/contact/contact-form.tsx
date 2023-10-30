@@ -45,7 +45,13 @@ export function ContactForm() {
       });
     }
 
-    form.reset({ message: "" });
+    form.reset({
+      name: "",
+      email: "",
+      message: "",
+      captchaToken: "",
+    });
+
     toast({
       title: "Success",
       description: result.message,
@@ -68,6 +74,7 @@ export function ContactForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="email"
@@ -81,6 +88,7 @@ export function ContactForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="message"
@@ -99,7 +107,9 @@ export function ContactForm() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          Submit
+        </Button>
       </form>
     </Form>
   );

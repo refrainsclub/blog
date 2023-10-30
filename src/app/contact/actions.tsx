@@ -23,7 +23,6 @@ export async function submitContactForm(
   }
 
   const emailHtml = render(<ContactFormResponse {...data} />);
-
   await sgMail.send({
     from: {
       email: "noreply@jamesblair.nz",
