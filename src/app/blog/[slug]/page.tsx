@@ -4,6 +4,12 @@ import { format, parseISO } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+export async function generateStaticParams() {
+  return allPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: {
