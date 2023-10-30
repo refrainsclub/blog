@@ -4,7 +4,6 @@ import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GeistSans } from "geist/font";
 import { Nav } from "@/components/nav";
-import { cn } from "@/lib/cn";
 import { Toaster } from "@/components/toaster";
 
 const og =
@@ -54,20 +53,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={GeistSans.variable}>
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className={cn(GeistSans.className, "antialiased")}>
-            <Nav className="container mx-auto my-12" />
-            {children}
-            <Footer className="my-12" />
-          </div>
-
+          <Nav className="container mx-auto my-12" />
+          {children}
+          <Footer className="my-12" />
           <Toaster />
         </ThemeProvider>
       </body>
