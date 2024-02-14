@@ -1,12 +1,11 @@
 "use server";
 
-import sgMail from "@sendgrid/mail";
-import { render } from "@react-email/render";
+import { Resend } from "resend";
 import { ContactFormResponse } from "@/emails/contact-form-response";
 import { contactFormSchema } from "@/app/contact/schema";
 import { z } from "zod";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export async function submitContactForm(
   values: z.infer<typeof contactFormSchema>,
@@ -16,25 +15,22 @@ export async function submitContactForm(
     return { success: false, message: "Your response was invalid" };
   }
 
-  const data = res.data;
+  const { data } = res;
   const passedCaptcha = verifyCaptchaToken(data.captchaToken);
   if (!passedCaptcha) {
     return { success: false, message: "Could not verify captcha token" };
   }
 
-  const emailHtml = render(<ContactFormResponse {...data} />);
-  await sgMail.send({
-    from: {
-      email: "noreply@jamesblair.nz",
-      name: "James Blair",
-    },
-    to: {
-      email: "james@blair.nz",
-      name: "James Blair",
-    },
+  const email = await resend.emails.send({
+    from: "Blog <blog@blair.nz>",
+    to: "james@blair.nz",
     subject: `${data.name} has left you a message`,
-    html: emailHtml,
+    react: <ContactFormResponse {...data} />
   });
+
+  if (email.error) {
+    return { success: false, message: "Could not send email successfully" }
+  }
 
   return { success: true, message: "Your message has been sent successfully" };
 }
