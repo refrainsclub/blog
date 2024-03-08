@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
-import { GeistSans } from "geist/font";
+import { GeistSans } from "geist/font/sans";
 import { Nav } from "@/components/nav";
 import { Toaster } from "@/components/toaster";
+import PlausibleProvider from "next-plausible";
 
 const og =
   "https://jamesblair.nz/og?title=I%27m%20James%20Blair%20%F0%9F%91%8B&description=Programmer,%20student%20and%20creator";
@@ -54,6 +55,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.variable}>
+      <head>
+        <PlausibleProvider
+          domain="jamesblair.nz"
+          customDomain="analytics.koru.ws"
+          selfHosted
+        />
+      </head>
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
