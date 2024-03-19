@@ -58,7 +58,7 @@ export default function RootLayout({
       <head>
         <PlausibleProvider
           domain="jamesblair.nz"
-          customDomain="https://analytics.koru.ws"
+          customDomain="https://analytics.blair.nz"
           selfHosted
         />
       </head>
